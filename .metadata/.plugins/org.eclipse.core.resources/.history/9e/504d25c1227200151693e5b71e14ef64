@@ -1,0 +1,21 @@
+package com.saucypixelstudios.trixeltechnician.trixels;
+
+import java.awt.Point;
+
+public class Trixel {
+	private int direction;
+	private int x;
+	private int y;
+	private Point[] vertices;
+
+	public Trixel(int direction, int x, int y){
+		this.direction = direction;
+		this.x = x;
+		this.y = y;
+		vertices = new Point[3];
+	}
+	
+	public void generatePoints(){
+		
+	}
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.saucypixelstudios.trixeltechnician.trixels.TrixelDirectionMap"/>
+<fullyQualifiedTypeName name="com.saucypixelstudios.trixeltechnician.trixels.Trixel"/>
+<fullyQualifiedTypeName name="com.saucypixelstudios.trixeltechnician.trixels.TrixelHandler"/>
+<fullyQualifiedTypeName name="java.awt.Graphics"/>
+<fullyQualifiedTypeName name="java.awt.Toolkit"/>
+<fullyQualifiedTypeName name="com.saucypixelstudios.trixeltechnician.trixels.TrixelBaseSideLength"/>
+<fullyQualifiedTypeName name="java.awt.Polygon"/>
+<fullyQualifiedTypeName name="java.awt.Point"/>
+<fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+</qualifiedTypeNameHistroy>
