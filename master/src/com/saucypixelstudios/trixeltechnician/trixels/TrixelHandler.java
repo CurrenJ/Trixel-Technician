@@ -12,7 +12,8 @@ public class TrixelHandler {
 	public static final int SECONDARY = 1;
 
 	public TrixelHandler(){
-		int horizontal = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / TrixelBaseSideLength.LENGTH);
+		TrixelBaseSideLength.init();
+		int horizontal = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / TrixelBaseSideLength.getMedian());
 		int vertical = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / TrixelBaseSideLength.LENGTH * 2);
 		trixels = new Trixel[horizontal][vertical];
 		curTrixel = null;

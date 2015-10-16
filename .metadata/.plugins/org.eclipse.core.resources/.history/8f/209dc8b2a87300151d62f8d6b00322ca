@@ -1,0 +1,51 @@
+package com.saucypixelstudios.trixeltechnician.trixels;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.util.ArrayList;
+
+public class ColorPickerMenu {
+	private ArrayList<Color> colors;
+	private ArrayList<Point> squarePoints;
+	private int squareSize = 8;
+	private int menuWidth;
+	private int menuHeight;
+	private int x;
+	private int y;
+	private Color menuColor = Color.decode("#B2B2B2");
+
+	public ColorPickerMenu(int windowWidth, int windowHeight){
+		colors = new ArrayList<Color>();
+		addColors();
+		findBorderDims();
+		findCoords(windowWidth, windowHeight);
+		System.out.println(colors.size() + " " + x + " " + y + " " + menuWidth + " " + menuHeight);
+	}
+	
+	public void drawMenu(Graphics g){
+		g.setColor(menuColor);
+		g.fillRect(x, y, menuWidth, menuHeight);
+	}
+	
+	public void addColors(){
+		colors.add(Color.decode("#801515"));
+		colors.add(Color.decode("#550000"));
+	}
+	
+	public void findBorderDims(){
+		if(colors.size() < 8){
+			menuWidth = (colors.size() + 2) * squareSize;
+			menuHeight = 3 * squareSize;
+		}
+		else{
+			menuWidth = 10 * squareSize;
+			menuHeight = ((int) (colors.size() / 8 + 2)) * squareSize;
+		}	
+	}
+	
+	public void findCoords(int windowWidth, int windowHeight){
+		x = windowWidth / 2 - menuWidth / 2;
+		y = windowHeight / 2 - menuHeight / 2;
+	}
+}

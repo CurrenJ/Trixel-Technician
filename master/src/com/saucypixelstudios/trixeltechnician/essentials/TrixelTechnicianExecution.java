@@ -16,11 +16,10 @@ public class TrixelTechnicianExecution extends TrixelTechnicianPanel  {
 		while(true) 
 		{ 
 			try 
-			{ 
-				Thread.sleep(10);
-				
+			{ 	
+				if(!paneOpen)
+					window.toFront();
 				run();
-				
 				repaint(); 
 			}catch(Exception e) 
 			{ 

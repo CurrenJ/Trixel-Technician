@@ -1,8 +1,11 @@
 package com.saucypixelstudios.trixeltechnician.essentials;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Point;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
@@ -21,6 +24,16 @@ public class Window extends JFrame {
 
     setLocationRelativeTo(null);
     setResizable(false);
+    centerFrame();
   }
+  
+  private void centerFrame() {
+	  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	  Point middle = new Point(screenSize.width / 2, screenSize.height / 2);
+	  Point newLocation = new Point(middle.x - (getWidth() / 2), 
+	                                middle.y - (getHeight() / 2));
+	  setLocation(-3, -1);
+}
+
   
 }
