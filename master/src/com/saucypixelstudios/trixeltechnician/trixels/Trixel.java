@@ -66,6 +66,10 @@ public class Trixel {
 	public Polygon getShape(){
 		return shape;
 	}
+	
+	public Color getColor(){
+		return color;
+	}
 
 	public void setColor(Color color){
 		if(color != null)

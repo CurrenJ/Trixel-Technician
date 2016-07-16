@@ -1,0 +1,21 @@
+package com.saucypixelstudios.trixeltechnician.camera;
+
+import java.awt.Graphics;
+
+public class Camera {
+	private int x;
+	private int y;
+	private double zoom;
+	private Graphics g;
+
+	public Camera(Graphics g, int x, int y, double zoom){
+		this.x = x;
+		this.y = y;
+		this.zoom = zoom;
+		this.g = g;
+	}
+	
+	public void drawTrixelRelative(Trixel trixel){
+		g.drawPolygon(p);
+	}
+}

@@ -3,6 +3,8 @@ package com.saucypixelstudios.trixeltechnician.trixels;
 import java.awt.Color;
 import java.awt.Toolkit;
 
+import javax.swing.JOptionPane;
+
 public class TrixelHandler {
 	public static Trixel[][] trixels;
 	public static Trixel curTrixel;
@@ -13,9 +15,10 @@ public class TrixelHandler {
 
 	public TrixelHandler(){
 		TrixelBaseSideLength.init();
-		int horizontal = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / TrixelBaseSideLength.getMedian());
-		int vertical = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / TrixelBaseSideLength.LENGTH * 2);
-		trixels = new Trixel[horizontal][vertical];
+//		int horizontal = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / TrixelBaseSideLength.getMedian());
+//		int vertical = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / TrixelBaseSideLength.LENGTH * 2);
+//		trixels = new Trixel[horizontal][vertical];
+		init();
 		curTrixel = null;
 		primaryColor = Color.decode("#801515");
 		secondaryColor = Color.decode("#550000");
@@ -35,7 +38,7 @@ public class TrixelHandler {
 				trixels[tW][tH] = trixel;
 			}
 		}
-		System.out.println("Trixel grid size: " + horizontal + ", " + vertical);
+		System.out.println("Trixel grid size: " + trixels.length + ", " + trixels[0].length);
 	}
 
 	public void setTrixel(int indexX, int indexY, Trixel trixel){
@@ -47,5 +50,9 @@ public class TrixelHandler {
 			curTrixel.setColor(primaryColor);
 		else if(colorChoice == SECONDARY)
 			curTrixel.setColor(secondaryColor);
+	}
+	
+	public static void init(){
+		trixels  = new Trixel[(Integer.parseInt(JOptionPane.showInputDialog("X Axis Length (in trixels): ")))][(Integer.parseInt(JOptionPane.showInputDialog("Y Axis Length (in trixels): ")))];
 	}
 }

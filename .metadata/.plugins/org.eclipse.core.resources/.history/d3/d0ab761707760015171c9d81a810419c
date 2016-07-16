@@ -1,0 +1,120 @@
+package com.saucypixelstudios.trixeltechnician.UI;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+
+import com.saucypixelstudios.trixeltechnician.camera.Camera;
+import com.saucypixelstudios.trixeltechnician.trixels.TrixelHandler;
+
+public class ScrollBar {
+	public static final int X_AXIS = 0;
+	public static final int Y_AXIS = 1;
+	private int axis;
+	private final float MINIMUM_GRIP_SIZE = 16;
+	private final float MAXIMUM_GRIP_SIZE;
+	private final float TRACK_SIZE;
+	private float windowScrollAreaSize;
+	private float contentSize;
+	private float windowPosition;
+	private float windowPositionRatio;
+	private float trackScrollAreaSize;
+	private float gripPositionOnTrack;
+	private float gripSize;
+	private final float WINDOW_SIZE;
+	private Color barColor = Color.decode("#747474");
+	private Color gripColor = Color.decode("#92AFD7");
+	private Color gripColorOutline = Color.decode("#27364C");
+
+	public ScrollBar(int axis){
+		this.axis = axis;
+		gripPositionOnTrack = 0;
+		gripSize = (float) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 15);
+
+		if(axis == X_AXIS){
+			WINDOW_SIZE = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+			TRACK_SIZE = WINDOW_SIZE - 24;
+		}
+		else if(axis == Y_AXIS){
+			WINDOW_SIZE = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+			TRACK_SIZE = WINDOW_SIZE - 56;
+		}
+		else{
+			TRACK_SIZE = 0;
+			WINDOW_SIZE = 0;
+		}
+
+		MAXIMUM_GRIP_SIZE = TRACK_SIZE;
+	}
+
+	public void mouseInteraction(int mX, int mY, Camera camera, TrixelHandler trixelHandler){
+		float newGripPosition = 0;
+		if(axis == X_AXIS){
+			contentSize = camera.widthOfTrixelGrid(trixelHandler);
+			newGripPosition = mX;
+			windowPosition = camera.getX();
+		}
+		else if(axis == Y_AXIS){
+			contentSize = camera.heightOfTrixelGrid(trixelHandler);
+			newGripPosition = mY;
+			windowPosition = camera.getY();
+		}
+
+		windowScrollAreaSize = contentSize - WINDOW_SIZE;
+		windowPositionRatio = windowPosition / windowScrollAreaSize;
+		trackScrollAreaSize = TRACK_SIZE - gripSize;
+		gripPositionOnTrack = trackScrollAreaSize * windowPositionRatio;
+
+		//System.out.println(windowScrollAreaSize + " " + windowPosition + " " + windowPositionRatio);
+
+		if(newGripPosition < 0)
+			newGripPosition = 0;
+		else if(newGripPosition > trackScrollAreaSize)
+			newGripPosition = trackScrollAreaSize;
+
+		float gripPositionRatio = newGripPosition / trackScrollAreaSize;
+		camera.setX((int) (gripPositionRatio * windowScrollAreaSize));
+		gripPositionOnTrack = newGripPosition;
+	}
+
+	public void drawBar(Graphics g){
+		if(axis == X_AXIS){
+			g.setColor(barColor);
+			g.fillRect(10, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 40, (int) TRACK_SIZE, 10);
+			g.setColor(Color.BLACK);
+			g.drawRect(10, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 40, (int) TRACK_SIZE, 10);
+
+			g.setColor(gripColor);
+			g.fillRect((int) gripPositionOnTrack + 10, (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()- 40), (int) gripSize, 10);
+			g.setColor(gripColorOutline);
+			g.drawRect((int) gripPositionOnTrack + 10, (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()- 40), (int) gripSize, 10);
+		}
+		else if(axis == Y_AXIS){
+			g.setColor(barColor);
+			g.fillRect((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 18, 10, 10, (int) TRACK_SIZE);
+			g.setColor(Color.BLACK);
+			g.drawRect((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 18, 10, 10, (int) TRACK_SIZE);
+		
+			g.setColor(gripColor);
+			g.fillRect((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()- 18), (int) gripPositionOnTrack + 10, 10, (int) gripSize);
+			g.setColor(gripColorOutline);
+			g.drawRect((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()- 18), (int) gripPositionOnTrack + 10, 10, (int) gripSize);
+		}
+	}
+
+	public boolean collidesWithGrip(int x, int y){
+		Rectangle hitbox = null;
+		if(axis == X_AXIS)
+			hitbox = new Rectangle((int) gripPositionOnTrack + 10, (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()- 40), (int) gripSize, 10);
+		else if(axis == Y_AXIS)
+			hitbox = new Rectangle((int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()- 18), (int) gripPositionOnTrack + 10, 10, (int) gripSize);
+		if(hitbox.contains(x, y))
+			return true;
+		return false;
+	}
+
+	public int getAxis(){
+		return axis;
+	}
+}

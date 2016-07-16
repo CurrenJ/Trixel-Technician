@@ -1,0 +1,30 @@
+package com.saucypixelstudios.trixeltechnician.camera;
+
+import java.awt.Graphics;
+import java.awt.Polygon;
+
+import com.saucypixelstudios.trixeltechnician.trixels.Trixel;
+
+public class Camera {
+	private int x;
+	private int y;
+	private double zoom;
+	private Graphics g;
+
+	public Camera(Graphics g, int x, int y, double zoom){
+		this.x = x;
+		this.y = y;
+		this.zoom = zoom;
+		this.g = g;
+	}
+	
+	public void drawTrixelRelative(Trixel trixel){
+		Polygon shape = trixel.getShape();
+		int nPoints = shape.npoints; 
+		for(int i = 0; i < nPoints; i++)
+		int[] xPoints = shape.xpoints;
+		int[] yPoints = shape.ypoints;
+
+		Polygon scaledShape = new Polygon(xPoints * multiplier)
+	}
+}
