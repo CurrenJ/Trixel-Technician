@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.saucypixelstudios.trixeltechnician.trixels.TrixelHandler;
@@ -21,10 +19,9 @@ public class ColorPickerMenu {
 	private int y;
 	private Color menuColor = Color.decode("#747474");
 
-	public ColorPickerMenu(int windowWidth, int windowHeight) throws NumberFormatException, IOException{
+	public ColorPickerMenu(int windowWidth, int windowHeight){
 		colors = new ArrayList<Color>();
 		addColors();
-		loadColorPalette("default");
 		findBorderDims();
 		findCoords(windowWidth, windowHeight);
 		System.out.println(colors.size() + " " + x + " " + y + " " + menuWidth + " " + menuHeight);
@@ -43,27 +40,10 @@ public class ColorPickerMenu {
 		}
 		return null;
 	}
-
-	public void loadColorPalette(String fileName) throws NumberFormatException, IOException{
-		boolean fileExists = true;
-		FileReader fr = null;
-		try {
-			fr = new FileReader("palettes/" + fileName + ".txt");
-		} catch (FileNotFoundException e) {
-			System.out.println("Could not locate palette at \"" + "/palettes/" + fileName + ".txt" + "\"");
-			fileExists = false;
-		}
-		if(fileExists){
-			BufferedReader br = new BufferedReader(fr);
-			colors.clear();
-			
-			String color;
-			while((color = br.readLine()) != null){
-				System.out.println(color);
-				addColorToPalette(Color.decode(color));
-			}
-			br.close();
-		}
+	
+	public void loadColorPalette(String fileName){
+		private FileReader fr = new FileReader("/palettes/" + fileName + ".txt");
+		private BufferedReader br;
 	}
 
 	public void drawMenu(Graphics g){
@@ -89,13 +69,13 @@ public class ColorPickerMenu {
 			g.setColor(Color.WHITE);
 			g.drawRect(squareSize * ((secondary % 8)+1) + x, (squareSize * ((int) (secondary / 8) + 1)) + y, squareSize, squareSize);
 		}
-
+		
 		if(primary != -1){
 			g.setColor(Color.BLACK);
 			g.drawRect(squareSize * ((primary % 8)+1) + x, (squareSize * ((int) (primary / 8) + 1)) + y, squareSize, squareSize);
 		}
 	}
-
+	
 	public void addColorToPalette(Color color){
 		colors.add(color);
 		findBorderDims();
@@ -106,15 +86,15 @@ public class ColorPickerMenu {
 		colors.add(Color.decode("#BA4A4A"));
 		colors.add(Color.decode("#801515"));
 		colors.add(Color.decode("#550000"));
-
+		
 		colors.add(Color.decode("#5DCC8B"));
 		colors.add(Color.decode("#2ECC71"));
 		colors.add(Color.decode("#27AE60"));
-
+		
 		colors.add(Color.decode("#5DA7D8"));
 		colors.add(Color.decode("#3498DB"));
 		colors.add(Color.decode("#2980B9"));
-
+		
 		colors.add(Color.decode("#FFDA47"));
 		colors.add(Color.decode("#FFCD02"));
 		colors.add(Color.decode("#FFA800"));

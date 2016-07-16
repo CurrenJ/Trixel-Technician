@@ -5602,3 +5602,6 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY edu.wpi.first.wpilib.plugins.core 1 0 2016-07-15 23:53:17.631
 !MESSAGE Installedjava
+
+!ENTRY com.instantiations.eclipse 1 0 2016-07-16 00:22:00.593
+!MESSAGE cannot support aboutToShutdown event - 2

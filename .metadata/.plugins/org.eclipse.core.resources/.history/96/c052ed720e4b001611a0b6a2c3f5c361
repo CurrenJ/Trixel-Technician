@@ -24,7 +24,7 @@ public class ColorPickerMenu {
 	public ColorPickerMenu(int windowWidth, int windowHeight) throws NumberFormatException, IOException{
 		colors = new ArrayList<Color>();
 		addColors();
-		loadColorPalette("default");
+		loadColorPalette("test");
 		findBorderDims();
 		findCoords(windowWidth, windowHeight);
 		System.out.println(colors.size() + " " + x + " " + y + " " + menuWidth + " " + menuHeight);
@@ -57,10 +57,9 @@ public class ColorPickerMenu {
 			BufferedReader br = new BufferedReader(fr);
 			colors.clear();
 			
-			String color;
-			while((color = br.readLine()) != null){
-				System.out.println(color);
-				addColorToPalette(Color.decode(color));
+			Color color;
+			while((color = Color.decode(br.readLine())) != null){
+				addColorToPalette(color);
 			}
 			br.close();
 		}
