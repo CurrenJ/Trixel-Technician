@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -20,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.saucypixelstudios.trixeltechnician.UI.ColorPickerMenu;
+import com.saucypixelstudios.trixeltechnician.UI.CornerMenu;
 import com.saucypixelstudios.trixeltechnician.UI.ScrollBar;
 import com.saucypixelstudios.trixeltechnician.UI.ZoomSlider;
 import com.saucypixelstudios.trixeltechnician.camera.Camera;
@@ -32,8 +35,6 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 	TrixelHandler trixelHandler;
 	boolean mouseDown;
 	int mouseButton;
-	boolean colorPickerOpen;
-	ColorPickerMenu colorPickerMenu;
 	boolean paneOpen;
 	boolean sliding;
 	boolean onTrixel;
@@ -47,12 +48,17 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 	int mX;
 	int mY;
 	boolean GUI;
+	CornerMenu menu;
 
 	public TrixelTechnicianPanel(Window window){
+		setBackground(Color.decode("#FFFFFF"));
+		setPreferredSize(new Dimension(Window.WIDTH, Window.HEIGHT));
+		setDoubleBuffered(true);
+		setVisible(true);
+		
 		this.window = window;
 		mouseDown = false;
 		mouseButton = MouseEvent.BUTTON1;
-		colorPickerOpen = false;
 		paneOpen = false;
 		sliding = false;
 		onTrixel = false;
@@ -60,15 +66,12 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 		yScrolling = false;
 		grid = false;
 		GUI = true;
-
+		
 		typingArea = new JTextField();
 		typingArea.addKeyListener(this);
 		addMouseListener(this);
 		add(typingArea, BorderLayout.PAGE_START);
-
-		setBackground(Color.decode("#FFFFFF"));
-		setPreferredSize(new Dimension(Window.WIDTH, Window.HEIGHT));
-		setDoubleBuffered(true);
+		
 
 		trixelHandler = new TrixelHandler();
 		camera = new Camera(0, 0, 1);
@@ -78,14 +81,20 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 	}
 
 	public void run() throws NumberFormatException, IOException{
-		if(colorPickerMenu == null)
-			colorPickerMenu = new ColorPickerMenu(window.getWidth() ,window.getHeight());
 		mX = getMouseX()-4;
 		mY = getMouseY()-26;
 
+		if(menu == null) {			
+			menu = new CornerMenu(window.getContentPane().getWidth() - 35, window.getContentPane().getHeight() - 45);
+			
+			menu.addColorPalette();
+			menu.addCheckbox(false, "Hello.");
+			menu.addCheckbox(true, "Hello World.");	
+		}
+		
 		//System.out.println("Mouse: " + mX + ", " + mY);
 
-		if(!colorPickerOpen){
+		if(!menu.inMenuBounds(mX,  mY)){ //check if menu is under mouse
 			onTrixel = false;
 			for(int tW = 0; tW < trixelHandler.trixels.length; tW++)
 				for(int tH = 0; tH < trixelHandler.trixels[0].length; tH++){
@@ -118,7 +127,7 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 			trixelHandler.curTrixel = null;
 	}
 
-	public void save(){
+	public void export(){
 		BufferedImage bi = new BufferedImage(this.getSize().width, this.getSize().height, BufferedImage.TYPE_INT_ARGB); 
 		Graphics g = bi.createGraphics();
 		GUI = false;
@@ -127,30 +136,39 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 		try{ImageIO.write(bi,"png",new File("Trixel Technician Art.png"));}catch (Exception e) {}
 		GUI = true;
 	}
+	
+	public void save(String fileName) {
+		trixelHandler.saveTrixelMap(fileName);
+	}
+	
+	public void save() {
+		save(JOptionPane.showInputDialog("File name:") + ".trxm");
+	}
 
 	public void paint(Graphics g){
 		super.paint(g);
 
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+		    RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		for(int t = 0; t < trixelHandler.trixels.length; t++){
 			for(int tH = 0; tH < trixelHandler.trixels[0].length; tH++){
 				if(trixelHandler.trixels[t][tH] != null)
-					camera.fillTrixelRelative(g, trixelHandler.trixels[t][tH], trixelHandler);
+					camera.fillTrixelRelative(g2, trixelHandler.trixels[t][tH], trixelHandler);
 				if(grid && GUI){
-					camera.drawTrixelRelative(grid, g, trixelHandler.trixels[t][tH], trixelHandler);
+					camera.drawTrixelRelative(grid, g2, trixelHandler.trixels[t][tH], trixelHandler);
 				}
 			}
 		}
 		if(onTrixel && GUI)
-			camera.drawTrixelRelative(false, g, trixelHandler.curTrixel, trixelHandler);
-
-
-		if(colorPickerMenu != null && colorPickerOpen && GUI)
-			colorPickerMenu.drawMenu(g);
+			camera.drawTrixelRelative(false, g2, trixelHandler.curTrixel, trixelHandler);
 
 		if(GUI){
 			zoomSlider.drawZoomSlider(g, (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth());
 			xScroll.drawBar(g);
 			yScroll.drawBar(g);
+			menu.drawMenu(g);
 		}
 	}
 
@@ -170,12 +188,8 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(colorPickerOpen){
-			if(e.getButton() == MouseEvent.BUTTON1)
-				trixelHandler.primaryColor = colorPickerMenu.getColorOnClick(e.getX(), e.getY());
-			else if(e.getButton() == MouseEvent.BUTTON3)
-				trixelHandler.secondaryColor = colorPickerMenu.getColorOnClick(e.getX(), e.getY());
-		}
+		menu.mouseClicked(e.getX(), e.getY());
+		trixelHandler.primaryColor = menu.getPrimaryColor();
 	}
 
 	@Override
@@ -207,14 +221,12 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyChar() == 'c')
-			colorPickerOpen = true;
+		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyChar() == 'c')
-			colorPickerOpen = false;
+
 	}
 
 	@Override
@@ -229,9 +241,9 @@ public class TrixelTechnicianPanel extends JPanel implements KeyListener, MouseL
 			trixelHandler.secondaryColor = Color.decode("#" + JOptionPane.showInputDialog("Enter the hex code you would like the secondary color to be:"));
 			paneOpen = false;
 		}	
-		else if(e.getKeyChar() == 'h'){
+		else if(e.getKeyChar() == 'l'){
 			paneOpen = true;
-			colorPickerMenu.addColorToPalette(Color.decode("#" + JOptionPane.showInputDialog("Enter the hex code you would like to add to your palette:")));
+			menu.loadPalette(JOptionPane.showInputDialog("Enter the name of the color palette you would like to load:"));
 			paneOpen = false;
 		}	
 		else if(e.getKeyChar() == 's'){

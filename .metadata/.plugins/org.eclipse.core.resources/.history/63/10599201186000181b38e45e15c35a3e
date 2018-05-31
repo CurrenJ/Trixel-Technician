@@ -1,0 +1,86 @@
+package com.saucypixelstudios.trixeltechnician.UI;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import com.saucypixelstudios.trixeltechnician.UI.MenuElement;;
+
+public class CornerMenu {
+	
+	private ArrayList<MenuElement> elements;
+	private ArrayList<Rectangle> bounds;
+	private Rectangle menuBounds;
+	private int brX; //bottom right x
+	private int brY; //bottom right y
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	private Graphics g;
+	
+	public CornerMenu(int x, int y) { //position of bottom right corner of menu
+		elements = new ArrayList<MenuElement>();
+		bounds = new ArrayList<Rectangle>();
+		menuBounds = new Rectangle();
+		brX = x;
+		brY = y;
+		this.x = brX;
+		this.y = brY;
+	}
+	
+	public void calcSize() {
+		width = 0;
+		height = 0;
+		for(MenuElement e : elements) {			
+			width = (e.getWidth() < width) ? width : e.getWidth(); //sets width to the largest element width over the course of loop
+			height += e.getHeight();
+		}
+		x = brX - width;
+		y = brY - height;
+		for(MenuElement e : elements ) {
+			bounds.set(elements.indexOf(e), new Rectangle(x, y + height, x + e.getWidth(), y + height + e.getHeight()));
+		}
+		
+		//System.out.println("brX: " + brX + " | x: " + x);
+		//System.out.println("brY: " + brY + " | y: " + y);
+		menuBounds.setBounds(bounds.get(0).x, bounds.get(0).y, width, height);
+	}
+	
+	public void addCheckbox(boolean checked, String text) {
+		elements.add(new Checkbox(checked, text));
+		bounds.add(new Rectangle());
+	}
+	
+	public void addColorPalette() {
+		elements.add(new ColorPalette());
+		bounds.add(new Rectangle());
+	}
+	
+	public void drawMenu(Graphics g) {
+		g.setColor(Color.GRAY);
+		g.fillRect(x, y, width, height);
+		g.setColor(Color.BLACK);
+		g.drawRect(x, y, width, height);
+		
+		int elemY = 0;
+		for(MenuElement e : elements) {
+			e.drawElement(g, x, y + elemY, width, height);
+			if(e.recalcNeeded())
+				calcSize();
+			
+			elemY += e.getHeight();
+		}
+	}
+	
+	public void mouseClicked(int mX, int mY) {
+		if(mX >= menuBounds.x && mX <= menuBounds.x + menuBounds.width && mY >= menuBounds.y && mY <= menuBounds.y + menuBounds.height) {
+			for(MenuElement e : elements) {
+				Rectangle area = bounds.get(elements.indexOf(e));
+				if(mX >= area.x && mX <= area.x + area.width && mY >= area.y && mY <= area.y + area.height) {
+				e	.mouseClicked(mX, mY, area.x, area.y);
+				}
+			}
+		}
+	}
+}

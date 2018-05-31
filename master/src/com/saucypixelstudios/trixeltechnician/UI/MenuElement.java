@@ -1,0 +1,64 @@
+package com.saucypixelstudios.trixeltechnician.UI;
+
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
+
+public abstract class MenuElement {
+
+	private int width;
+	private int height;
+	
+	protected boolean sizeCalculated = false;
+	protected boolean previousSizeCalcState = false;
+
+	public MenuElement() {
+		this.width = 0;
+		this.height = 0;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+	
+	protected void setWidth(int width) {
+		this.width = width;
+	}
+	
+	protected void setHeight(int height) {
+		this.height = height;
+	}
+	
+	public boolean recalcNeeded() { //should menu recalculate size?? aka has calcSize been run in this element aka rising edge bool check
+		if(sizeCalculated && !previousSizeCalcState) {
+			previousSizeCalcState = sizeCalculated;
+			return true;
+		}
+		else {
+			previousSizeCalcState = sizeCalculated;
+			return false;
+		}
+	}
+	
+	public abstract void mouseClicked(int mX, int mY, int menuX, int menuY);
+	
+	public abstract void calcSize(int menuWidth, int menuHeight, int stringWidth, int stringHeight);
+	
+	public abstract void calcBounds(int x, int y, int menuWidth, int menuHeight);
+
+	public abstract void drawElement(Graphics g, int x, int y, int menuWidth, int menuHeight);
+
+	protected Rectangle getStringBounds(Graphics2D g2, String str, float x, float y)
+	{
+		FontRenderContext frc = g2.getFontRenderContext();
+		GlyphVector gv = g2.getFont().createGlyphVector(frc, str);
+		return gv.getPixelBounds(null, x, y);
+	}
+
+}

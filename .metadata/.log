@@ -5605,3 +5605,153 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY com.instantiations.eclipse 1 0 2016-07-16 00:22:00.593
 !MESSAGE cannot support aboutToShutdown event - 2
+!SESSION 2018-05-22 10:20:57.550 -----------------------------------------------
+eclipse.buildId=4.7.2.M20171130-0510
+java.version=1.8.0_71
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product -data C:\Users\Curren\Documents\GitHub\Trixel-Technician\ -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.core.resources 2 10035 2018-05-22 10:21:03.133
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-05-22 10:21:25.247
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Curren'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.epp.mpc.ui 1 0 2018-05-23 05:26:12.578
+!MESSAGE Performing Marketplace install request from http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=90
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10052 2018-05-23 05:30:05.571
+!MESSAGE Cannot continue the operation.  There is another install operation in progress.
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10052 2018-05-23 05:30:05.660
+!MESSAGE Cannot continue the operation.  There is another install operation in progress.
+
+!ENTRY org.eclipse.equinox.p2.touchpoint.natives 2 0 2018-05-23 05:30:14.815
+!MESSAGE Could not remove temporary backup directory (it is safe to manually delete it and its contents): C:\Users\Curren\AppData\Local\Temp\C__Users_Curren_eclipse_java-oxygen_eclipse_2c718ab2c280_a015641edd0
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2018-05-23 05:30:35.847
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2018-05-23 05:30:35.847
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:30:35.847
+!MESSAGE Software being installed: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:30:35.847
+!MESSAGE Missing requirement: Metrics plugin 3.14.1.201104282140 (com.stateofflow.eclipse.metrics 3.14.1.201104282140) requires 'bundle org.eclipse.core.runtime.compatibility 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2018-05-23 05:30:35.847
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:30:35.847
+!MESSAGE From: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:30:35.847
+!MESSAGE To: com.stateofflow.eclipse.metrics [3.14.1.201104282140]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2018-05-23 05:30:35.856
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2018-05-23 05:30:35.857
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:30:35.857
+!MESSAGE Software being installed: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:30:35.857
+!MESSAGE Missing requirement: Metrics plugin 3.14.1.201104282140 (com.stateofflow.eclipse.metrics 3.14.1.201104282140) requires 'bundle org.eclipse.core.runtime.compatibility 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2018-05-23 05:30:35.857
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:30:35.857
+!MESSAGE From: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:30:35.857
+!MESSAGE To: com.stateofflow.eclipse.metrics [3.14.1.201104282140]
+!SESSION 2018-05-23 05:30:51.339 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_71
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-05-23 05:31:48.001
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Curren'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2018-05-23 05:32:33.160
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2018-05-23 05:32:33.160
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:32:33.160
+!MESSAGE Software being installed: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:32:33.160
+!MESSAGE Missing requirement: Metrics plugin 3.14.1.201104282140 (com.stateofflow.eclipse.metrics 3.14.1.201104282140) requires 'bundle org.eclipse.core.runtime.compatibility 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2018-05-23 05:32:33.160
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:32:33.160
+!MESSAGE From: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:32:33.160
+!MESSAGE To: com.stateofflow.eclipse.metrics [3.14.1.201104282140]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2018-05-23 05:32:33.327
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2018-05-23 05:32:33.327
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:32:33.327
+!MESSAGE Software being installed: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:32:33.327
+!MESSAGE Missing requirement: Metrics plugin 3.14.1.201104282140 (com.stateofflow.eclipse.metrics 3.14.1.201104282140) requires 'bundle org.eclipse.core.runtime.compatibility 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2018-05-23 05:32:33.327
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:32:33.327
+!MESSAGE From: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:32:33.327
+!MESSAGE To: com.stateofflow.eclipse.metrics [3.14.1.201104282140]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2018-05-23 05:33:01.098
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2018-05-23 05:33:01.098
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:33:01.098
+!MESSAGE Software being installed: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:33:01.098
+!MESSAGE Missing requirement: Metrics plugin 3.14.1.201104282140 (com.stateofflow.eclipse.metrics 3.14.1.201104282140) requires 'bundle org.eclipse.core.runtime.compatibility 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2018-05-23 05:33:01.098
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:33:01.098
+!MESSAGE From: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:33:01.098
+!MESSAGE To: com.stateofflow.eclipse.metrics [3.14.1.201104282140]
+
+!ENTRY org.eclipse.equinox.p2.operations 4 10053 2018-05-23 05:33:01.101
+!MESSAGE Operation details
+!SUBENTRY 1 org.eclipse.equinox.p2.director 4 10053 2018-05-23 05:33:01.101
+!MESSAGE Cannot complete the install because one or more required items could not be found.
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:33:01.101
+!MESSAGE Software being installed: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:33:01.101
+!MESSAGE Missing requirement: Metrics plugin 3.14.1.201104282140 (com.stateofflow.eclipse.metrics 3.14.1.201104282140) requires 'bundle org.eclipse.core.runtime.compatibility 0.0.0' but it could not be found
+!SUBENTRY 2 org.eclipse.equinox.p2.director 4 1 2018-05-23 05:33:01.101
+!MESSAGE Cannot satisfy dependency:
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:33:01.101
+!MESSAGE From: Metrics Feature 3.14.1.201104282140 (com.stateofflow.eclipse.metrics.feature.feature.group 3.14.1.201104282140)
+!SUBENTRY 3 org.eclipse.equinox.p2.director 4 0 2018-05-23 05:33:01.101
+!MESSAGE To: com.stateofflow.eclipse.metrics [3.14.1.201104282140]
+
+!ENTRY org.eclipse.epp.mpc.ui 1 0 2018-05-23 05:33:05.330
+!MESSAGE Performing Marketplace install request from http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=90
+!SESSION 2018-05-31 05:05:41.937 -----------------------------------------------
+eclipse.buildId=4.7.3.M20180330-0640
+java.version=1.8.0_71
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2018-05-31 05:07:14.148
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\Curren'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.

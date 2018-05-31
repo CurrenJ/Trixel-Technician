@@ -1,0 +1,95 @@
+package com.saucypixelstudios.trixeltechnician.UI;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+
+public class ColorPalette extends MenuElement{
+
+	private final int BOX_SIZE = 10;
+	private final int BOX_GAP = 2; //gap between each cube
+	private int MARGIN_HORI = 5;
+	private final int MARGIN_VERT = 6;
+	private final int SWATCHES_PER_ROW = 4;
+	
+	private ArrayList<Color> colors;
+	private ArrayList<Rectangle> boxes;
+	
+	public ColorPalette() {
+		super();
+		colors = new ArrayList<Color>();
+		boxes = new ArrayList<Rectangle>();
+		addColor("FFFFFF");
+		addColor("BA4A4A");
+		addColor("801515");
+		addColor("550000");
+		addColor("5DCC8B");
+		addColor("2ECC71");
+		addColor("27AE60");
+		addColor("5DA7D8");
+		addColor("3498DB");
+		addColor("2980B9");
+		addColor("FFDA47");
+		addColor("FFCD02");
+		addColor("FFA800");
+	}
+	
+	public void addColor(String hex) {
+		colors.add(Color.decode("#" + hex));
+		boxes.add(new Rectangle());
+		sizeCalculated = false;
+	}
+
+	public void selectColor() {
+		
+	}
+	
+	@Override
+	public void mouseClicked(int mX, int mY, int menuX, int menuY) {
+		for(Rectangle r : boxes) {
+			if(r.contains(mX, mY))
+				
+		}
+	}
+
+	@Override
+	public void calcSize(int x, int y, int menuWidth, int menuHeight, int stringWidth, int stringHeight) {
+		setWidth(BOX_SIZE * SWATCHES_PER_ROW + BOX_GAP * SWATCHES_PER_ROW + MARGIN_HORI * 2);
+		setHeight(BOX_SIZE * ((colors.size()-1) / SWATCHES_PER_ROW + 1) + BOX_GAP * ((colors.size()-1) / SWATCHES_PER_ROW + 1) + MARGIN_VERT * 2);
+		if(getWidth() < menuWidth) {
+			MARGIN_HORI = (menuWidth - BOX_SIZE * SWATCHES_PER_ROW - BOX_GAP * SWATCHES_PER_ROW) / 2;
+			setWidth(BOX_SIZE * SWATCHES_PER_ROW + BOX_GAP * SWATCHES_PER_ROW + MARGIN_HORI * 2);
+		}
+		
+		int xStart = x + MARGIN_HORI;
+		int yStart = y + MARGIN_VERT;
+		
+		int index = 0;
+		for(Color c : colors) {
+			boxes.set(colors.indexOf(c), new Rectangle(xStart + (index % (SWATCHES_PER_ROW)) * (BOX_SIZE + BOX_GAP), yStart + ((index / SWATCHES_PER_ROW)) * (BOX_SIZE + BOX_GAP), BOX_SIZE, BOX_SIZE));
+			index++;
+		}
+		
+		sizeCalculated = true;
+	}
+
+	@Override
+	public void drawElement(Graphics g, int x, int y, int menuWidth, int menuHeight) {
+		//System.out.println("WIDTH: " + getWidth());
+		
+		if(!sizeCalculated || getWidth() < menuWidth)
+			calcSize(x, y, menuWidth, menuHeight, 0, 0);
+		
+		int xStart = x + MARGIN_HORI;
+		int yStart = y + MARGIN_VERT;
+		
+		int index = 0;
+		for(Color c : colors) {
+			g.setColor(c);
+			g.fillRect(xStart + (index % (SWATCHES_PER_ROW)) * (BOX_SIZE + BOX_GAP), yStart + ((index / SWATCHES_PER_ROW)) * (BOX_SIZE + BOX_GAP), BOX_SIZE, BOX_SIZE);
+			index++;
+		}
+	}
+
+}

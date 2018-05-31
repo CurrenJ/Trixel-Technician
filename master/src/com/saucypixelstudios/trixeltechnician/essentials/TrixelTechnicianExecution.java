@@ -1,8 +1,5 @@
 package com.saucypixelstudios.trixeltechnician.essentials;
 
-import com.saucypixelstudios.trixeltechnician.trixels.Trixel;
-import com.saucypixelstudios.trixeltechnician.trixels.TrixelDirectionMap;
-
 public class TrixelTechnicianExecution extends TrixelTechnicianPanel  {
 
 	public TrixelTechnicianExecution(Window window) 

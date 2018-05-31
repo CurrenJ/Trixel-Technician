@@ -12,4 +12,8 @@ public class TrixelBaseSideLength {
 	public static void init(){
 		LENGTH = (Integer.parseInt(JOptionPane.showInputDialog("Enter a trixel size number:")) + 6) * 2;
 	}
+	
+	public static void init(int size) {
+		LENGTH = size;
+	}
 }

@@ -1,8 +1,0 @@
-package com.saucypixelstudios.trixeltechnician.trixels;
-
-public class Trixel {
-
-	public Trixel(int direction, int x, int y){
-		
-	}
-}

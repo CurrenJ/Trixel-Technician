@@ -1,0 +1,11 @@
+package com.saucypixelstudios.trixeltechnician.UI;
+
+public class Element {
+	
+	private int width;
+	private int height;
+
+	public Element(int width, int height) {
+		
+	}
+}

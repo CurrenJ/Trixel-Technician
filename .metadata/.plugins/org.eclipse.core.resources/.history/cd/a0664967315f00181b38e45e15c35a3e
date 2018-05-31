@@ -1,0 +1,60 @@
+package com.saucypixelstudios.trixeltechnician.UI;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
+public class Checkbox extends MenuElement {
+
+	private final int HEIGHT = 20;
+	private boolean checked = false;
+	private String text;
+	private final int boxSize = 10;
+	private final int boxTextGap = 5;
+	private final int marginSizeHori = 10;
+	private final int marginSizeVert = 3;
+	
+	
+	public Checkbox(boolean checked, String text) {
+		super(100, 20);
+		this.checked = checked;
+		this.text = text;
+	}
+	
+	public void calcSize(int stringWidth, int stringHeight) {
+		System.out.println("Dims A: " + getWidth() + " | " + getHeight());
+		setWidth(stringWidth + boxSize + boxTextGap + 2 * marginSizeHori);
+		setHeight(stringHeight + 2 * marginSizeVert);
+		sizeCalculated = true;
+		System.out.println("Width B: " + getWidth() + " | " + getHeight());
+	}
+
+	@Override
+	public void drawElement(Graphics g, int x, int y) {
+		Graphics2D g2 = (Graphics2D) g;
+
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+
+		double textHeight = getStringBounds(g2, text, 0, 0).getHeight();
+		int stringWidth = g.getFontMetrics().stringWidth(text);
+		
+		if(!sizeCalculated)
+			calcSize(stringWidth, (int)textHeight);
+        
+		g.setColor(Color.BLACK);
+//		int xStart = x + ( (getWidth() - stringWidth - boxSize - boxTextGap) / 2) + marginSizeHori; //finds x to draw at
+//		int yStartText = (int) (y + ( (getHeight() - textHeight) / 2 ) + textHeight + marginSizeVert);
+		int xStart = x + marginSizeHori;
+		int yStartText = (int) (y + marginSizeVert + textHeight);
+		int yStartBox = y + ( (getHeight() - boxSize) / 2 );	 
+		g.drawRect(xStart, yStartBox, boxSize, boxSize);
+		g.drawString(text, xStart + boxSize + boxTextGap, yStartText);
+		
+	}
+	
+	public boolean getChecked() {
+		return checked;
+	}
+}

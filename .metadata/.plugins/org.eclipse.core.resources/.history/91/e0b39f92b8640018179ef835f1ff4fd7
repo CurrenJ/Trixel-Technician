@@ -1,0 +1,136 @@
+package com.saucypixelstudios.trixeltechnician.UI;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class ColorPalette extends MenuElement{
+
+	private final int BOX_SIZE = 15;
+	private final int BOX_GAP = 0; //gap between each cube
+	private int MARGIN_HORI = 5;
+	private final int MARGIN_VERT = 6;
+	private final int SWATCHES_PER_ROW = 8;
+	
+	private ArrayList<Color> colors;
+	private ArrayList<Rectangle> boxes;
+	
+	private Color primaryColor;
+	
+	public ColorPalette() {
+		super();
+		colors = new ArrayList<Color>();
+		primaryColor = Color.decode("#FFFFFF");
+		boxes = new ArrayList<Rectangle>();
+		loadColorPalette("default");
+	}
+	
+	public void addColor(String hex) {
+		colors.add(Color.decode("#" + hex));
+		boxes.add(new Rectangle());
+		sizeCalculated = false;
+	}
+	
+	public void addColor(Color color) {
+		colors.add(color);
+		boxes.add(new Rectangle());
+		sizeCalculated = false;
+	}
+
+	public void selectColor(Color color) {
+		primaryColor = color;
+	}
+	
+	public Color getPrimaryColor() {
+		return primaryColor;
+	}
+	
+	public void loadColorPalette(String fileName){
+		try {
+		
+			boolean fileExists = true;
+			FileReader fr = null;
+			try {
+				fr = new FileReader("palettes/" + fileName + ".txt");
+			} catch (FileNotFoundException e) {
+				System.out.println("Could not locate palette at \"" + "/palettes/" + fileName + ".txt" + "\"");
+				fileExists = false;
+			}
+			if(fileExists){
+				BufferedReader br = new BufferedReader(fr);
+				colors = new ArrayList<Color>();
+				boxes = new ArrayList<Rectangle>();
+				
+				String color;
+				while((color = br.readLine()) != null){
+					addColor(Color.decode(color));
+				}
+				br.close();
+			}
+		} catch(Exception e){
+			
+		}
+	}
+
+	
+	@Override
+	public void mouseClicked(int mX, int mY, int menuX, int menuY) {
+		for(Rectangle r : boxes) {
+			if(r.contains(mX, mY))
+				selectColor(colors.get(boxes.indexOf(r)));
+		}
+	}
+
+	@Override
+	public void calcSize(int menuWidth, int menuHeight, int stringWidth, int stringHeight) {
+		setWidth(BOX_SIZE * SWATCHES_PER_ROW + BOX_GAP * SWATCHES_PER_ROW + MARGIN_HORI * 2);
+		setHeight(BOX_SIZE * ((colors.size()-1) / SWATCHES_PER_ROW + 1) + BOX_GAP * ((colors.size()-1) / SWATCHES_PER_ROW + 1) + MARGIN_VERT * 2);
+		if(getWidth() < menuWidth) {
+			MARGIN_HORI = (menuWidth - BOX_SIZE * SWATCHES_PER_ROW - BOX_GAP * SWATCHES_PER_ROW) / 2;
+			setWidth(BOX_SIZE * SWATCHES_PER_ROW + BOX_GAP * SWATCHES_PER_ROW + MARGIN_HORI * 2);
+		}
+		
+		System.out.println(getWidth() + " | " + getHeight());
+		sizeCalculated = true;
+	}
+
+	@Override
+	public void drawElement(Graphics g, int x, int y, int menuWidth, int menuHeight) {
+		//System.out.println("WIDTH: " + getWidth());
+		
+		if(!sizeCalculated || getWidth() < menuWidth)
+			calcSize(menuWidth, menuHeight, 0, 0);
+		
+		int xStart = x + MARGIN_HORI;
+		int yStart = y + MARGIN_VERT;
+		
+		int index = 0;
+		for(Color c : colors) {
+			Rectangle area = boxes.get(colors.indexOf(c));
+			g.setColor(c);
+			g.fillRect(area.x, area.y, area.width, area.height);
+			g.setColor(Color.BLACK);
+			if(primaryColor.hashCode() == c.hashCode())
+				g.drawRect(area.x, area.y, area.width-1, area.height-1);
+			index++;
+		}
+	}
+
+	@Override
+	public void calcBounds(int x, int y, int menuWidth, int menuHeight) {
+		int xStart = x + MARGIN_HORI;
+		int yStart = y + MARGIN_VERT;
+		
+		int index = 0;
+		for(Color c : colors) {
+			boxes.set(colors.indexOf(c), new Rectangle(xStart + (index % (SWATCHES_PER_ROW)) * (BOX_SIZE + BOX_GAP), yStart + ((index / SWATCHES_PER_ROW)) * (BOX_SIZE + BOX_GAP), BOX_SIZE, BOX_SIZE));
+			index++;
+		}
+	}
+
+}
